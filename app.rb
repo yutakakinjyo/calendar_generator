@@ -1,43 +1,39 @@
 # coding: utf-8
 require 'sinatra'
 
+BASE_URL = 'https://www.google.com/calendar/event?action=TEMPLATE'
+
 get '/' do
   erb :index 
 end
 
-class Parameter
-  attr_accessor :text, :location, :details, :start_date, :start_time, :end_date, :end_time
-
-  def dates
-    @start_date + "T" + @start_time + "/" + @end_date + "T" + @end_time
-  end
-  
-end
-
-BASE_URL = 'http://www.google.com/calendar/event?action=TEMPLATE'
-
 post '/generate' do
-
-  param = Parameter.new
-  param.text = params[:text]
-  param.location =  params[:location]
-  param.details = params[:details]
-  param.start_date = params[:start_date]
-  param.start_time = params[:start_time]
-  param.end_date = params[:end_date]
-  param.end_time = params[:end_time]
-
-  url = generate(param)
-  
+  url = GCalendar.new(params).url
   %Q{<a href="#{url}">#{url}</a>}
-  
 end
 
+class GCalendar
 
-def generate(param)
-  BASE_URL +
-    "&text=#{param.text}" +
-    "&location=#{param.location}" +
-    "&details=#{param.details}" +
-    "&dates=#{param.dates}"
+  def initialize(params)
+    @param = Parameter.new(params)
+  end
+
+  def url
+    BASE_URL + @param.url
+  end
+end
+
+class Parameter
+
+  def initialize(params)
+    @params = {}
+    @params[:text] = params[:text]
+    @params[:location] =  params[:location]
+    @params[:details] = params[:details]
+    @params[:dates] = params[:start_date] + "T" + params[:start_time] + "/" + params[:end_date] + "T" + params[:end_time]
+  end
+
+  def url
+    "&" + @params.map{|k,v| "#{k}=#{v}"}.join('&')
+  end
 end
