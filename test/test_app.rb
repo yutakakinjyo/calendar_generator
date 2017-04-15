@@ -17,16 +17,15 @@ class AppTest < Test::Unit::TestCase
   end
 
   def test_generate_func
-    param = Parameter.new
-    param.text = "sample event"
-    param.location =  "Japan"
-    param.details = "event detail"
-    param.start_date = "2017/10/10"
-    param.start_time = "100000"
-    param.end_date = "2017/10/10"
-    param.end_time = "110000"
+    gcal = GCalendar.new( text: "sample event",
+                          location: "Japan",
+                          details: "event detail",
+                          start_date: "20171010",
+                          start_time: "100000",
+                          end_date: "20171010",
+                          end_time: "110000" )
 
-    assert_equal BASE_URL + "&text=sample event&location=Japan&details=event detail&dates=2017/10/10T100000/2017/10/10T110000", generate(param)
+    assert_equal BASE_URL + "&text=sample event&location=Japan&details=event detail&dates=20171010T100000/20171010T110000", gcal.url
   end
 
 end
