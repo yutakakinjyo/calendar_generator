@@ -16,14 +16,12 @@ class AppTest < Test::Unit::TestCase
     assert last_response.ok?
   end
 
-  def test_generate_func
+  def test_generate_url
     gcal = GCalendar.new( text: "sample event",
                           location: "Japan",
                           details: "event detail",
-                          start_date: "2017-10-10",
-                          start_time: "10:00",
-                          end_date: "2017-11-11",
-                          end_time: "12:34" )
+                          start_date: "2017-10-10T10:00",
+                          end_date: "2017-11-11T12:34" )
 
     assert_equal BASE_URL + "&text=sample event&location=Japan&details=event detail&dates=20171010T100000/20171111T123400", gcal.url
   end
