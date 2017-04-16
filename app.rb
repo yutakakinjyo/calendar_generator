@@ -34,6 +34,6 @@ class Parameter
   end
 
   def url
-    "&" + @params.map{|k,v| "#{k}=#{v}"}.join('&')
+    @params.map{|k,v| "&#{k}=#{v}"}.join
   end
 end
