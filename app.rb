@@ -30,10 +30,19 @@ class Parameter
     @params[:text] = params[:text]
     @params[:location] =  params[:location]
     @params[:details] = params[:details]
-    @params[:dates] = params[:start_date] + "T" + params[:start_time] + "/" + params[:end_date] + "T" + params[:end_time]
+    @params[:dates] = format(params[:start_date],params[:start_time]) +
+                      "/" +
+                      format(params[:end_date],params[:end_time])
   end
 
   def url
     @params.map{|k,v| "&#{k}=#{v}"}.join
   end
+
+  private
+
+  def format(date,time)
+    DateTime.parse(date+"T"+time).strftime("%Y%m%dT%H%M%S")
+  end
+
 end

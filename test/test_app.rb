@@ -20,12 +20,12 @@ class AppTest < Test::Unit::TestCase
     gcal = GCalendar.new( text: "sample event",
                           location: "Japan",
                           details: "event detail",
-                          start_date: "20171010",
-                          start_time: "100000",
-                          end_date: "20171010",
-                          end_time: "110000" )
+                          start_date: "2017-10-10",
+                          start_time: "10:00",
+                          end_date: "2017-11-11",
+                          end_time: "12:34" )
 
-    assert_equal BASE_URL + "&text=sample event&location=Japan&details=event detail&dates=20171010T100000/20171010T110000", gcal.url
+    assert_equal BASE_URL + "&text=sample event&location=Japan&details=event detail&dates=20171010T100000/20171111T123400", gcal.url
   end
 
 end
