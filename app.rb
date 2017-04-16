@@ -26,7 +26,6 @@ end
 class Parameter
 
   def initialize(params)
-    p params
     @params = {}
     @params[:text]     = params[:text]
     @params[:location] = params[:location]
