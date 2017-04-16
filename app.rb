@@ -27,12 +27,11 @@ class Parameter
 
   def initialize(params)
     @params = {}
-    @params[:text] = params[:text]
-    @params[:location] =  params[:location]
-    @params[:details] = params[:details]
-    @params[:dates] = format(params[:start_date],params[:start_time]) +
-                      "/" +
-                      format(params[:end_date],params[:end_time])
+    @params[:text]     = params[:text]
+    @params[:location] = params[:location]
+    @params[:details]  = params[:details]
+    @params[:dates]    = dates_format(params[:start_date], params[:start_time],
+                                      params[:end_date],   params[:end_time])
   end
 
   def url
@@ -41,8 +40,8 @@ class Parameter
 
   private
 
-  def format(date,time)
-    DateTime.parse(date+"T"+time).strftime("%Y%m%dT%H%M%S")
+  def dates_format(start_date,start_time, end_date, end_time)
+    DateTime.parse(start_date+"T"+start_time).strftime("%Y%m%dT%H%M%S") + "/" + DateTime.parse(end_date+"T"+end_time).strftime("%Y%m%dT%H%M%S")
   end
 
 end
